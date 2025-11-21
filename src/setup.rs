@@ -47,7 +47,8 @@ pub fn setup_ui(
             ),
             MoneyText,
         ));
-
+    
+    commands.spawn(button(&asset_server));
 }
 
 

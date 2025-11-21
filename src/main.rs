@@ -2,7 +2,11 @@ mod components;
 mod setup;
 mod update;
 
-use bevy::prelude::*;
+
+use bevy::{
+    input_focus::InputFocus,
+    prelude::*
+};
 
 
 
@@ -13,9 +17,9 @@ fn main() {
     let mut app = App::new();
 
     app.add_plugins(DefaultPlugins);
-
+    app.init_resource::<InputFocus>();
     app.add_systems(Startup, (setup::setup_player, setup::setup_ui));
-    app.add_systems(Update, update::update);
+    app.add_systems(Update, (update::update, components::button_system));
 
     app.run();
 }
