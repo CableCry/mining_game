@@ -13,9 +13,9 @@ pub fn update(
     let money = inventory.money();
 
 
-    //**money_text = format!("{money:.2}").into();
-    let span: &mut TextSpan = &mut *money_text;
-    span.0 = format!("{money:.2}");
+    **money_text = format!("{money:.2}").into();
+    //let span: &mut TextSpan = &mut *money_text;
+    //span.0 = format!("{money:.2}");
 
 }
 
