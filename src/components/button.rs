@@ -12,6 +12,7 @@ use bevy::{
 //      - Text, size, etc...
 // 2. Link functions like increase
 // 3. Build out better system for the button bundle 
+// 4. Look into belly and if it is worth adding
 
 
 
