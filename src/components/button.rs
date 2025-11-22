@@ -7,6 +7,15 @@ use bevy::{
 
 
 
+//TODO:
+// 1. Add customization on load 
+//      - Text, size, etc...
+// 2. Link functions like increase
+// 3. Build out better system for the button bundle 
+
+
+
+
 pub fn button(asset_server: &AssetServer) -> impl Bundle {
     (
         // Outer container: NOT a Button
@@ -23,13 +32,18 @@ pub fn button(asset_server: &AssetServer) -> impl Bundle {
             Node {
                 width: px(150),
                 height: px(65),
-                border: UiRect::all(px(5)),
+                border: UiRect::all(px(2)),
                 justify_content: JustifyContent::Center,
                 align_items: AlignItems::Center,
                 ..default()
             },
             BorderColor::all(Color::WHITE),
-            BorderRadius::MAX,
+            BorderRadius::new(
+                Val::Px(0.0),
+                Val::Px(0.0),
+                Val::Px(0.0),
+                Val::Px(0.0),
+            ),
             BackgroundColor(Color::BLACK),
             children![(
                 Text::new("Button"),

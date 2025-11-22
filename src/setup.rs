@@ -19,6 +19,9 @@ pub fn setup_player(
 }
 
 
+const SHOW_BORDER: bool = false;
+
+
 pub fn setup_ui(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
@@ -48,7 +51,42 @@ pub fn setup_ui(
             MoneyText,
         ));
     
-    commands.spawn(button(&asset_server));
+
+
+    let mut base = commands.spawn(
+        Node {
+            width: percent(100.0),
+            height: percent(100.0),
+            border: UiRect::all(px(2.0)),
+            justify_content: JustifyContent::Start,
+            align_items: AlignItems::Center,
+            flex_direction: FlexDirection::Row,
+            padding: UiRect::all(px(10.0)),
+            ..default()
+        });
+
+
+    base.with_children(|parent| {
+        let mut inner = parent.spawn(Node {
+            width: percent(25.0),
+            height: percent(35.0),
+            border: UiRect::all(px(2.0)),
+            flex_direction: FlexDirection::Column,
+            justify_content: JustifyContent::Start,
+            align_items: AlignItems::Center,
+            ..default()
+        });
+
+        if SHOW_BORDER { inner.insert(BorderColor::all(Color::WHITE)); }
+
+        inner.with_children(|parent| {
+
+            parent.spawn(button(&asset_server));
+            parent.spawn(button(&asset_server));
+            parent.spawn(button(&asset_server));
+        });
+    });
+
 }
 
 
