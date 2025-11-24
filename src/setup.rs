@@ -6,6 +6,7 @@ use bevy::{
 use std::collections::HashMap;
 
 use crate::components::*;
+use crate::types::*;
 
 
 pub fn setup_player(
@@ -16,6 +17,9 @@ pub fn setup_player(
     commands.spawn((
         Player,
         Inventory::new(0.0, 0.0),
+        MoneyPerClick::new(1.0),
+        MoneyPerSecond::new(0.0),
+        MoneyMultiplier::new(1.0),
     ));
 
 }
