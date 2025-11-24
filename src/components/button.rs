@@ -16,8 +16,12 @@ use bevy::{
 
 
 
-pub fn button(asset_server: &AssetServer) -> impl Bundle {
+pub fn button(asset_server: &AssetServer, text: impl Into<String>) -> impl Bundle {
+    
+    let label = text.into(); 
     (
+
+        
         // Outer container: NOT a Button
         Node {
             width: percent(100),
@@ -46,7 +50,7 @@ pub fn button(asset_server: &AssetServer) -> impl Bundle {
             ),
             BackgroundColor(Color::BLACK),
             children![(
-                Text::new("Button"),
+                Text::new(label),
                 TextFont {
                     font: asset_server.load("fonts/monogram.ttf"),
                     font_size: 33.0,
@@ -65,6 +69,16 @@ pub fn button(asset_server: &AssetServer) -> impl Bundle {
 const NORMAL_BUTTON: Color = Color::srgb(0.15, 0.15, 0.15);
 const HOVERED_BUTTON: Color = Color::srgb(0.25, 0.25, 0.25);
 const PRESSED_BUTTON: Color = Color::srgb(0.35, 0.75, 0.35);
+
+
+#[derive(Component)]
+pub enum UiAction {
+    Balance(String),
+    Test(String),
+}
+
+
+
 
 
 
@@ -111,3 +125,34 @@ pub fn button_system(
     }
 }
 
+
+pub fn button_action_system(
+
+    buttons: Query<(&Interaction, &ChildOf), (Changed<Interaction>, With<Button>)>,
+    actions: Query<&UiAction>
+) {
+
+    for (interaction, child_of) in &buttons {
+
+        if *interaction != Interaction::Pressed {
+            continue;
+        }
+
+        let parent_entity = child_of.parent();
+
+        if let Ok(action) = actions.get(parent_entity) {
+            
+            match action {
+                UiAction::Balance(label) => {
+                    println!("Balance Button Pressed {label}");
+                }
+                UiAction::Test(label) => {
+                    println!("TEST BUTTON HIT {label}")
+                }
+            }
+
+        }
+
+    }
+
+}

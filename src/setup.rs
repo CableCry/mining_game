@@ -22,6 +22,16 @@ pub fn setup_player(
 const SHOW_BORDER: bool = false;
 
 
+
+
+
+
+
+
+
+
+
+
 pub fn setup_ui(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
@@ -81,9 +91,19 @@ pub fn setup_ui(
 
         inner.with_children(|parent| {
 
-            parent.spawn(button(&asset_server));
-            parent.spawn(button(&asset_server));
-            parent.spawn(button(&asset_server));
+            parent.spawn((
+                button(&asset_server, "Increase"),
+                UiAction::Balance("Increase".to_string())  
+                
+            ));
+            parent.spawn(
+                (button(&asset_server, "Test 1"), 
+                UiAction::Test("Test".to_string())
+            ));
+            parent.spawn((
+                button(&asset_server, "Test 2"),
+                UiAction::Test("Test".to_string())
+            ));
         });
     });
 
