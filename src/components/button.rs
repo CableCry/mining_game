@@ -16,11 +16,12 @@ use bevy::{
 
 
 
+
+
 pub fn button(asset_server: &AssetServer, text: impl Into<String>) -> impl Bundle {
     
     let label = text.into(); 
     (
-
         
         // Outer container: NOT a Button
         Node {
@@ -82,7 +83,7 @@ pub enum UiAction {
 
 
 
-pub fn button_system(
+pub fn button_interaction_system(
     mut input_focus: ResMut<InputFocus>,
     mut interaction_query: Query<
         (
@@ -90,36 +91,27 @@ pub fn button_system(
             &Interaction,
             &mut BackgroundColor,
             &mut BorderColor,
-            &Children,
         ),
         (Changed<Interaction>, With<Button>),
     >,
-    mut text_query: Query<&mut Text>,
 ) {
-    for (entity, interaction, mut color, mut border_color, children) in &mut interaction_query {
+    for (entity, interaction, mut color, mut border_color) in &mut interaction_query {
         // Find the first child that actually has a Text component
-        if let Some(&child) = children.first() {
-            if let Ok(mut text) = text_query.get_mut(child) {
-                match *interaction {
-                    Interaction::Pressed => {
-                        input_focus.set(entity);
-                        text.0 = "Press".to_string();
-                        *color = PRESSED_BUTTON.into();
-                        *border_color = BorderColor::all(RED);
-                    }
-                    Interaction::Hovered => {
-                        input_focus.set(entity);
-                        text.0 = "Hover".to_string();
-                        *color = HOVERED_BUTTON.into();
-                        *border_color = BorderColor::all(Color::WHITE);
-                    }
-                    Interaction::None => {
-                        input_focus.clear();
-                        text.0 = "Button".to_string();
-                        *color = NORMAL_BUTTON.into();
-                        *border_color = BorderColor::all(Color::BLACK);
-                    }
-                }
+        match *interaction {
+            Interaction::Pressed => {
+                input_focus.set(entity);
+                *color = PRESSED_BUTTON.into();
+                *border_color = BorderColor::all(RED);
+            }
+            Interaction::Hovered => {
+                input_focus.set(entity);
+                *color = HOVERED_BUTTON.into();
+                *border_color = BorderColor::all(Color::WHITE);
+            }
+            Interaction::None => {
+                input_focus.clear();
+                *color = NORMAL_BUTTON.into();
+                *border_color = BorderColor::all(Color::BLACK);
             }
         }
     }

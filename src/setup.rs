@@ -22,16 +22,6 @@ pub fn setup_player(
 const SHOW_BORDER: bool = false;
 
 
-
-
-
-
-
-
-
-
-
-
 pub fn setup_ui(
     mut commands: Commands,
     asset_server: Res<AssetServer>,

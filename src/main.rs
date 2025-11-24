@@ -19,7 +19,7 @@ fn main() {
     app.add_plugins(DefaultPlugins);
     app.init_resource::<InputFocus>();
     app.add_systems(Startup, (setup::setup_player, setup::setup_ui));
-    app.add_systems(Update, (update::update, components::button_system, components::button_action_system));
+    app.add_systems(Update, (update::update, components::button_interaction_system, components::button_action_system));
 
     app.run();
 }
