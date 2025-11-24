@@ -83,16 +83,16 @@ pub fn setup_ui(
 
             parent.spawn((
                 button(&asset_server, "Increase"),
-                UiAction::Balance("Increase".to_string())  
+                UiAction::IncreaseBalance()  
                 
             ));
             parent.spawn(
-                (button(&asset_server, "Test 1"), 
-                UiAction::Test("Test".to_string())
+                (button(&asset_server, "Decrease"), 
+                UiAction::DecreaseBalance()
             ));
             parent.spawn((
-                button(&asset_server, "Test 2"),
-                UiAction::Test("Test".to_string())
+                button(&asset_server, "Test 1"),
+                UiAction::Test("Test 1".to_string())
             ));
         });
     });

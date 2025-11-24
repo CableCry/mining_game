@@ -6,6 +6,9 @@ use bevy::{
 };
 
 
+use crate::components::inventory::*;
+use crate::components::player::*;
+
 
 //TODO:
 // 1. Add customization on load 
@@ -74,13 +77,10 @@ const PRESSED_BUTTON: Color = Color::srgb(0.35, 0.75, 0.35);
 
 #[derive(Component)]
 pub enum UiAction {
-    Balance(String),
+    IncreaseBalance(),
+    DecreaseBalance(),
     Test(String),
 }
-
-
-
-
 
 
 pub fn button_interaction_system(
@@ -120,6 +120,7 @@ pub fn button_interaction_system(
 
 pub fn button_action_system(
 
+    mut inventory: Single<&mut Inventory, With<Player>>,
     buttons: Query<(&Interaction, &ChildOf), (Changed<Interaction>, With<Button>)>,
     actions: Query<&UiAction>
 ) {
@@ -135,14 +136,13 @@ pub fn button_action_system(
         if let Ok(action) = actions.get(parent_entity) {
             
             match action {
-                UiAction::Balance(label) => {
-                    println!("Balance Button Pressed {label}");
-                }
+                UiAction::IncreaseBalance() => { inventory.add_money(1.0); }
+                UiAction::DecreaseBalance() => { inventory.add_money(-1.0); }
+
                 UiAction::Test(label) => {
                     println!("TEST BUTTON HIT {label}")
                 }
             }
-
         }
 
     }
