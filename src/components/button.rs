@@ -75,6 +75,9 @@ const HOVERED_BUTTON: Color = Color::srgb(0.25, 0.25, 0.25);
 const PRESSED_BUTTON: Color = Color::srgb(0.35, 0.75, 0.35);
 
 
+
+
+
 #[derive(Component)]
 pub enum UiAction {
     IncreaseBalance(),
@@ -138,7 +141,7 @@ pub fn button_action_system(
             match action {
                 UiAction::IncreaseBalance() => { inventory.add_money(1.0); }
                 UiAction::DecreaseBalance() => { inventory.add_money(-1.0); }
-
+         
                 UiAction::Test(label) => {
                     println!("TEST BUTTON HIT {label}")
                 }

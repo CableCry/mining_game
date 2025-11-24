@@ -3,6 +3,8 @@ use bevy::{
     prelude::*,
 };
 
+use std::collections::HashMap;
+
 use crate::components::*;
 
 
@@ -17,6 +19,10 @@ pub fn setup_player(
     ));
 
 }
+
+
+
+
 
 
 const SHOW_BORDER: bool = false;
