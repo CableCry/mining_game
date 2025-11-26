@@ -2,66 +2,28 @@ use bevy::{
     prelude::*,
 };
 
-use crate::types::*;
 
+use crate::types::SingleValue;
+use crate::impl_single_value;
 
 
 #[derive(Component)]
 pub struct MoneyPerClick(f64);
-
-impl ValueAccess for MoneyPerClick {
-    fn get_value(&self) -> f64 {
-        self.0
-    }
-    fn set_value(&mut self, v: f64) {
-        self.0 = v;
-    }
-}
-
-impl NewForSingleValue<f64> for MoneyPerClick {
-    fn new(v: f64) -> Self {
-        Self { 0: v }
-    }
-}
+impl_single_value!(MoneyPerClick, f64);
 
 
 #[derive(Component)]
 pub struct MoneyPerSecond(f64);
-
-impl ValueAccess for MoneyPerSecond {
-    fn get_value(&self) -> f64 {
-        self.0
-    }
-    fn set_value(&mut self, v: f64) {
-        self.0 = v;
-    }
-}
-
-impl NewForSingleValue<f64> for MoneyPerSecond {
-    fn new(v: f64) -> Self {
-        Self { 0: v }
-    }
-}
-
+impl_single_value!(MoneyPerSecond, f64);
 
 
 #[derive(Component)]
 pub struct MoneyMultiplier(f64);
+impl_single_value!(MoneyMultiplier, f64);
 
-impl ValueAccess for MoneyMultiplier {
-    fn get_value(&self) -> f64 {
-        self.0
-    }
-    fn set_value(&mut self, v: f64) {
-        self.0 = v;
-    }
-}
 
-impl NewForSingleValue<f64> for MoneyMultiplier {
-    fn new(v: f64) -> Self {
-        Self { 0: v }
-    }
-}
+
+
 
 
 enum UpgradeEffect {

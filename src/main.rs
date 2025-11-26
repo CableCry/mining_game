@@ -1,7 +1,7 @@
 mod components;
 mod setup;
 mod update;
-mod types;
+pub mod types;
 
 
 use bevy::{
