@@ -1,6 +1,7 @@
 mod components;
 mod setup;
 mod update;
+mod types;
 
 
 use bevy::{
@@ -19,7 +20,7 @@ fn main() {
     app.add_plugins(DefaultPlugins);
     app.init_resource::<InputFocus>();
     app.add_systems(Startup, (setup::setup_player, setup::setup_ui));
-    app.add_systems(Update, (update::update, components::button_system));
+    app.add_systems(Update, (update::update, components::button_interaction_system, components::button_action_system));
 
     app.run();
 }

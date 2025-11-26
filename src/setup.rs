@@ -3,7 +3,10 @@ use bevy::{
     prelude::*,
 };
 
+use std::collections::HashMap;
+
 use crate::components::*;
+use crate::types::*;
 
 
 pub fn setup_player(
@@ -14,9 +17,16 @@ pub fn setup_player(
     commands.spawn((
         Player,
         Inventory::new(0.0, 0.0),
+        MoneyPerClick::new(1.0),
+        MoneyPerSecond::new(0.0),
+        MoneyMultiplier::new(1.0),
     ));
 
 }
+
+
+
+
 
 
 const SHOW_BORDER: bool = false;
@@ -81,9 +91,19 @@ pub fn setup_ui(
 
         inner.with_children(|parent| {
 
-            parent.spawn(button(&asset_server));
-            parent.spawn(button(&asset_server));
-            parent.spawn(button(&asset_server));
+            parent.spawn((
+                button(&asset_server, "Increase"),
+                UiAction::IncreaseBalance()  
+                
+            ));
+            parent.spawn(
+                (button(&asset_server, "Decrease"), 
+                UiAction::DecreaseBalance()
+            ));
+            parent.spawn((
+                button(&asset_server, "Test 1"),
+                UiAction::Test("Test 1".to_string())
+            ));
         });
     });
 
