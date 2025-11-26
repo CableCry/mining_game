@@ -47,4 +47,11 @@ const UPGRADES: &[UpgradeDef] = &[
         cost: 10.0,
         effect: UpgradeEffect::AddFlatMoneyPerClick(1.0),
     },
+
+    UpgradeDef {
+        id: "money_multi_1",
+        name: "Better Tools",
+        cost: 50.0,
+        effect: UpgradeEffect::MultiplyMoneyGain(1.5),
+    }
 ];
